@@ -1,11 +1,21 @@
 package com.mate.spring.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "USERS")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(name = "TOKEN")
     private String token;
+    @Column(name = "USERNAME")
     private String username;
+    @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "EMAIL")
     private String email;
 
     public Integer getId() {

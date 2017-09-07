@@ -30,6 +30,7 @@
                     <nav>
                         <ul class="nav masthead-nav">
                             <li class="active"><a href="<c:url value="/login"/>">Login</a></li>
+                            <li class="active"><a href="<c:url value="/register"/>">Register</a></li>
                             <li><a href="#">Features</a></li>
                             <li><a href="#">Contact</a></li>
                         </ul>

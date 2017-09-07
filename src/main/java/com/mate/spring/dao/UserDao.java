@@ -4,6 +4,8 @@ import com.mate.spring.model.User;
 
 public interface UserDao {
 
-    User getByUsername(String username);
+    void addUser(User user);
+
+    User getUserByName(String name);
 
 }

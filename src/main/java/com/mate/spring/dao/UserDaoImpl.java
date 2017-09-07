@@ -4,11 +4,30 @@ import com.mate.spring.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.Query;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+@Transactional
+public class UserDaoImpl extends AbstractDao implements UserDao {
 
-    @Autowired
+
+    @Override
+    public void addUser(User user) {
+        this.sessionFactory.getCurrentSession().save(user);
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        String query = "from User where username =:name";
+        return (User) this.sessionFactory.getCurrentSession()
+                           .createQuery(query)
+                           .setParameter("name", name)
+                           .uniqueResult();
+    }
+
+    /*@Autowired
     private JdbcTemplate jdbcTemplate;
 
     public User getByUsername(String username) {
@@ -23,5 +42,8 @@ public class UserDaoImpl implements UserDao {
             return result;
         });
         return user;
-    }
+    }*/
+
+
+
 }
