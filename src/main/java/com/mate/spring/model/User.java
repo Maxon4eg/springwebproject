@@ -1,6 +1,8 @@
 package com.mate.spring.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -17,6 +19,13 @@ public class User {
     private String password;
     @Column(name = "EMAIL")
     private String email;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_to_role",
+            joinColumns = {@JoinColumn(name = "USER_ID", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false) })
+    private Set<Role> roles = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -56,5 +65,17 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setRole(Role role) {
+        this.roles.add(role);
     }
 }

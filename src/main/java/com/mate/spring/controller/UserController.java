@@ -2,6 +2,7 @@ package com.mate.spring.controller;
 
 
 import com.mate.spring.model.User;
+import com.mate.spring.service.RoleService;
 import com.mate.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping("/login")
     public ModelAndView login() {
@@ -39,8 +43,9 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute("user") User user) {
-        userService.addUser(user);
         ModelAndView mv = new ModelAndView();
+        user.setRole(roleService.getRoleByRoleName("USER"));   //TO DO externalize to property file
+        userService.addUser(user);
         mv.addObject(user);
         mv.setViewName("welcome");
         return mv;

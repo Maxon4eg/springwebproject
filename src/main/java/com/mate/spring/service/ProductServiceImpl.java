@@ -14,19 +14,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
 
-    @PostConstruct
-    public void init() {
-        Category category = new Category();
-        category.setId(2);
-
-        Product product1 = new Product();
-        product1.setCategory(category);
-        product1.setDescription("Just Nokia");
-        product1.setPrice(40.0);
-        product1.setProductName("Nokia");
-        addProduct(product1);
-    }
-
     @Override
     public void addProduct(Product product) {
         productDao.addProduct(product);
