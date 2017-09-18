@@ -2,7 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
@@ -49,5 +59,36 @@
     <context:component-scan base-package="com.mate.spring"/>
 
     <context:property-placeholder location="classpath:application.properties" system-properties-mode="OVERRIDE"/>
+
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/admin**" access="ROLE_ADMIN"/>
+        <security:form-login
+                login-page="/login"
+                authentication-failure-url="/login?error"
+                default-target-url="/"
+                username-parameter="username"
+                password-parameter="password"
+                login-processing-url="/j_spring_security_check"
+        />
+        <security:logout
+                logout-url="/j_spring_security_logout"
+                logout-success-url="/login?logout"/>
+        <security:csrf/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service data-source-ref="dataSource"
+                                        users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?"
+                                        authorities-by-username-query="SELECT username, role_name FROM users u
+                                                                       join user_to_role utr on u.id = utr.user_id
+                                                                       join roles r on r.id = utr.role_id
+                                                                       WHERE username = ?"
+            />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="defaultWebSecurityExpressionHandler"
+          class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 
 </beans>
