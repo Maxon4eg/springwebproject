@@ -27,6 +27,15 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
                            .uniqueResult();
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        String query = "from User where username =:email";
+        return (User) this.sessionFactory.getCurrentSession()
+                .createQuery(query)
+                .setParameter("email", email)
+                .uniqueResult();
+    }
+
     /*@Autowired
     private JdbcTemplate jdbcTemplate;
 

@@ -1,5 +1,8 @@
 package com.mate.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mate.spring.util.View;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,10 +17,12 @@ public class User {
     @Column(name = "TOKEN")
     private String token;
     @Column(name = "USERNAME")
+    @JsonView(View.Public.class)
     private String username;
     @Column(name = "PASSWORD")
     private String password;
     @Column(name = "EMAIL")
+    @JsonView(View.Public.class)
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

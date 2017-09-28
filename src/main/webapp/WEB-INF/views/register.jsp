@@ -33,10 +33,15 @@
         <h2 class="form-signin-heading">Please register</h2>
 
         <spring:label path="username" class="sr-only">Username</spring:label>
-        <spring:input path="username" class="form-control" placeholder="Username"/>
+        <spring:input id="username" path="username" class="form-control" placeholder="Username"/>
+        <span class="username-response" style="display: none"></span>
 
         <spring:label path="password" class="sr-only">Password</spring:label>
         <spring:input type="password" path="password" class="form-control" placeholder="Password"/>
+
+        <spring:label path="email" class="sr-only">Password</spring:label>
+        <spring:input id="email" type="email" path="email" class="form-control" placeholder="Email"/>
+        <span class="email-response" style="display: none"></span>
 
         <div class="checkbox">
             <label>
@@ -47,6 +52,6 @@
     </spring:form>
 
 </div> <!-- /container -->
-
+<script src="/resources/bootstrap/js/main.js"></script>
 </body>
 </html>
