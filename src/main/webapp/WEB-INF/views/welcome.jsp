@@ -12,5 +12,7 @@
 </head>
 <body>
 
+    <h1>Welcome Authenticated user</h1>
+
 </body>
 </html>
