@@ -7,3 +7,4 @@ ADD 		app.war /usr/local/tomcat/webapps/ROOT.war
 ADD 		tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 ADD 		manager.xml /usr/local/tomcat/conf/Catalina/localhost/manager.xml
 
+EXPOSE 80:8080
