@@ -22,8 +22,8 @@
     <bean id="dispatcherServlet" class="org.springframework.web.servlet.DispatcherServlet"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${db.driver}"/>
-        <property name="url" value="${db.url}"/>
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:tcp://localhost:1521/test"/>
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
