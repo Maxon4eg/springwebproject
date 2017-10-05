@@ -17,17 +17,17 @@ public class AjaxController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/user/api/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/api/registration", method = RequestMethod.POST, consumes = "application/json")
     public AjaxUserFieldResponse userRegisterInputValidation(@RequestBody SearchCriteria searchCriteria) {
         AjaxUserFieldResponse responseBody = new AjaxUserFieldResponse();
         if(searchCriteria.getParamName().equals("name")) {
-            User result = userService.getUserByName(searchCriteria.getParamName());
+            User result = userService.getUserByName(searchCriteria.getParam());
             responseBody.setAvailable(result != null);
             responseBody.setCode("200");
             return responseBody;
         }
         if(searchCriteria.getParamName().equals("email")) {
-            User result = userService.getUserByEmail(searchCriteria.getParamName());
+            User result = userService.getUserByEmail(searchCriteria.getParam());
             responseBody.setAvailable(result != null);
             responseBody.setCode("200");
             return responseBody;

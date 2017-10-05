@@ -60,8 +60,8 @@
 
     <context:property-placeholder location="classpath:application.properties" system-properties-mode="OVERRIDE"/>
 
-    <security:http auto-config="true">
-        <security:intercept-url pattern="/admin**" access="ROLE_ADMIN"/>
+    <security:http auto-config="true" security="none">
+<!--        <security:intercept-url pattern="/admin**" access="ROLE_ADMIN"/>
         <security:form-login
                 login-page="/login"
                 authentication-failure-url="/login?error"
@@ -73,7 +73,7 @@
         <security:logout
                 logout-url="/j_spring_security_logout"
                 logout-success-url="/login?logout"/>
-        <security:csrf/>
+        <security:csrf/>-->
     </security:http>
 
     <security:authentication-manager>
