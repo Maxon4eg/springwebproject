@@ -15,11 +15,15 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
     private UserPropertiesValidatorImpl validators;
 
 
     public void addUser(User user) {
         if(validators.validate(user)) {
+            mailService.send(user);
             userDao.addUser(user);
         }
     }
