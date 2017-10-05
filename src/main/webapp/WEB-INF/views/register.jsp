@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
 
     <title>Register</title>
 
@@ -22,6 +23,7 @@
 
     <!-- Custom styles for this template -->
     <link href="<c:url value="/resources/bootstrap/css/signin.css"/>" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -33,10 +35,15 @@
         <h2 class="form-signin-heading">Please register</h2>
 
         <spring:label path="username" class="sr-only">Username</spring:label>
-        <spring:input path="username" class="form-control" placeholder="Username"/>
+        <spring:input data-field="name" id="username" path="username" class="form-control" placeholder="Username"/>
+        <span class="username-response" style="display: none"></span>
 
         <spring:label path="password" class="sr-only">Password</spring:label>
         <spring:input type="password" path="password" class="form-control" placeholder="Password"/>
+
+        <spring:label path="email" class="sr-only">Password</spring:label>
+        <spring:input data-field="email" id="email" type="email" path="email" class="form-control" placeholder="Email"/>
+        <span class="email-response" style="display: none"></span>
 
         <div class="checkbox">
             <label>
@@ -47,6 +54,6 @@
     </spring:form>
 
 </div> <!-- /container -->
-
+<script src="/resources/bootstrap/js/main.js"></script>
 </body>
 </html>
