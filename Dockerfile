@@ -1,4 +1,4 @@
-FROM 		tomcat:7.0
+FROM 		openweb/oracle-tomcat
 
 MAINTAINER 	maxon4eg
 
