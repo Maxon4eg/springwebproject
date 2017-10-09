@@ -1,10 +1,10 @@
-FROM 		tomcat:8.0
+FROM 		tomcat:7.0
 
 MAINTAINER 	maxon4eg
 
 RUN         rm -rf /usr/local/tomcat/webapps/ROOT
-ADD 		app.war /usr/local/tomcat/webapps/ROOT.war
-ADD 		tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
-ADD 		manager.xml /usr/local/tomcat/conf/Catalina/localhost/manager.xml
+ADD 		target/app.war /usr/local/tomcat/webapps/ROOT.war
+ADD 		deploy/admin-user.xml /usr/local/tomcat/conf/admin-user.xml
+ADD 		deploy/manager.xml /usr/local/tomcat/conf/Catalina/localhost/manager.xml
 
 EXPOSE 8080

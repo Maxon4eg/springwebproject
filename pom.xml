@@ -18,6 +18,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>app</finalName>
     </build>
     <packaging>war</packaging>
     <properties>
