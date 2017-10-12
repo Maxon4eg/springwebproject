@@ -14,8 +14,6 @@ docker stop applicationContainer ;
 docker rm applicationContainer ;
 docker rmi project ;
 
-git reset --hard HEAD ;
-git pull origin dev;
 cd .. ;
 mvn clean package ;
 cp target/app.war deploy/app.war ;
