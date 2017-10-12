@@ -4,22 +4,23 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
 fi
-cd ~/web_project/springwebproject ;
 
 if [ "$1" == "-u"  ]
     then git reset --hard HEAD ; git pull origin dev ;
 fi
 
 #web app deploy
-docker stop mytomContainer ;
-docker rm mytomContainer ;
-docker rmi mytomcat ;
+docker stop applicationContainer ;
+docker rm applicationContainer ;
+docker rmi project ;
 
 git reset --hard HEAD ;
 git pull origin dev;
+cd .. ;
 mvn clean package ;
-cp target/spring-web-project-1.0-SNAPSHOT.war /home/ubuntu/wars/app.war ;
+cd deploy ;
+cp target/app.war app.war ;
 cp deploy/* /home/ubuntu/wars ;
-cd /home/ubuntu/wars; docker build . -t mytomcat ;
-docker run -d --name mytomContainer mytomcat ;
+docker build . -t project ;
+docker run -d --name applicationContainer --link db:db project ;
 echo " BUILD FINISHED ! ";
