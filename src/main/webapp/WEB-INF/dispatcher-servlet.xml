@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/mvc
@@ -12,7 +13,7 @@
                            http://www.springframework.org/schema/tx
                            http://www.springframework.org/schema/tx/spring-tx.xsd
                            http://www.springframework.org/schema/security
-                           http://www.springframework.org/schema/security/spring-security.xsd">
+                           http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
@@ -32,7 +33,7 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
 
         <property name="hibernateProperties">
@@ -44,10 +45,32 @@
             </props>
         </property>
         <property name="packagesToScan" value="com.mate.spring.*"/>
+    </bean>-->
+
+    <!--<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>-->
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <!-- Set JPA properties -->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="javax.persistence.schema-generation.database.action">none</prop>
+            </props>
+        </property>
+        <!-- Set base package of your entities -->
+        <property name="packagesToScan" value="com.mate.spring.model"/>
+        <!-- Set validation mode -->
+        <property name="validationMode" value="NONE"/>
     </bean>
 
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
     <mvc:annotation-driven/>
@@ -60,7 +83,13 @@
 
     <context:property-placeholder location="classpath:application.properties" system-properties-mode="OVERRIDE"/>
 
+    <bean id="hibernateJpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
+    <jpa:repositories base-package="com.mate.spring.dao"/>
+
     <security:http auto-config="true" security="none">
+
 <!--        <security:intercept-url pattern="/admin**" access="ROLE_ADMIN"/>
         <security:form-login
                 login-page="/login"
@@ -76,7 +105,7 @@
         <security:csrf/>-->
     </security:http>
 
-    <security:authentication-manager>
+    <!--<security:authentication-manager>
         <security:authentication-provider>
             <security:jdbc-user-service data-source-ref="dataSource"
                                         users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?"
@@ -86,7 +115,7 @@
                                                                        WHERE username = ?"
             />
         </security:authentication-provider>
-    </security:authentication-manager>
+    </security:authentication-manager>-->
 
     <bean id="defaultWebSecurityExpressionHandler"
           class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>

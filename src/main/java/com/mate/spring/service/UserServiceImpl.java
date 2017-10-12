@@ -1,18 +1,19 @@
 package com.mate.spring.service;
 
-import com.mate.spring.dao.UserDao;
+import com.mate.spring.dao.UserRepository;
 import com.mate.spring.model.User;
 import com.mate.spring.service.validation.UserPropertiesValidatorImpl;
-import com.mate.spring.service.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    UserRepository userRepository;
 
     @Autowired
     private MailService mailService;
@@ -24,17 +25,17 @@ public class UserServiceImpl implements UserService {
     public void addUser(User user) {
         if(validators.validate(user)) {
             mailService.send(user);
-            userDao.addUser(user);
+            userRepository.save(user);
         }
     }
 
     @Override
     public User getUserByName(String name) {
-        return userDao.getUserByName(name);
+        return userRepository.findByUsername(name);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return userDao.getUserByEmail(email);
+        return userRepository.findByEmail(email);
     }
 }

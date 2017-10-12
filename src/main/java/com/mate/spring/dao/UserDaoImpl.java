@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 
+@Deprecated
 @Repository
 @Transactional
 public class UserDaoImpl extends AbstractDao implements UserDao {
@@ -15,25 +16,25 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public void addUser(User user) {
-        this.sessionFactory.getCurrentSession().save(user);
+        //this.sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
     public User getUserByName(String name) {
         String query = "from User where username =:name";
-        return (User) this.sessionFactory.getCurrentSession()
-                           .createQuery(query)
-                           .setParameter("name", name)
-                           .uniqueResult();
+        return null; //return (User) this.sessionFactory.getCurrentSession()
+        //                   .createQuery(query)
+        //                   .setParameter("name", name)
+        //                   .uniqueResult();
     }
 
     @Override
     public User getUserByEmail(String email) {
         String query = "from User where username =:email";
-        return (User) this.sessionFactory.getCurrentSession()
-                .createQuery(query)
-                .setParameter("email", email)
-                .uniqueResult();
+        return null;//return (User) this.sessionFactory.getCurrentSession()
+        //        .createQuery(query)
+        //        .setParameter("email", email)
+        //        .uniqueResult();
     }
 
     /*@Autowired

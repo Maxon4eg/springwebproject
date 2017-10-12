@@ -11,6 +11,6 @@ public class ProductDaoImpl extends AbstractDao implements ProductDao {
 
     @Override
     public void addProduct(Product product) {
-        sessionFactory.getCurrentSession().save(product);
+        //sessionFactory.getCurrentSession().save(product);
     }
 }

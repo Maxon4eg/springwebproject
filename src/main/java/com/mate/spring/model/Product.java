@@ -2,20 +2,17 @@ package com.mate.spring.model;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
     @Column(name = "PRODUCT_NAME")
     private String productName;
     @Column(name = "DESCRIPTION")
-    @NotNull
     private String description;
     @Column(name = "PRICE")
     private Double price;

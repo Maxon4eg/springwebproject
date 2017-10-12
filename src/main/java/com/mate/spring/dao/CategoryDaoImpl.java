@@ -13,6 +13,6 @@ public class CategoryDaoImpl extends AbstractDao implements CategoryDao {
 
     @Override
     public List<Category> getAllCategories() {
-        return sessionFactory.getCurrentSession().createCriteria(Category.class).list();
+        return null; //sessionFactory.getCurrentSession().createCriteria(Category.class).list();
     }
 }

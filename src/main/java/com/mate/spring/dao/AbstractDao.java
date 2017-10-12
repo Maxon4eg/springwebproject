@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AbstractDao {
 
-    @Autowired
-    protected SessionFactory sessionFactory;
+    /*@Autowired
+    protected SessionFactory sessionFactory;*/
 
 
 }
