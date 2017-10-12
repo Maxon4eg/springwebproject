@@ -18,9 +18,9 @@ git reset --hard HEAD ;
 git pull origin dev;
 cd .. ;
 mvn clean package ;
-cd deploy ;
-cp target/app.war app.war ;
-cp deploy/* /home/ubuntu/wars ;
+cp target/app.war deploy/app.war ;
+cd deploy/
+### build images
 docker build . -t project ;
 docker run -d --name applicationContainer --link db:db project ;
 echo " BUILD FINISHED ! ";
