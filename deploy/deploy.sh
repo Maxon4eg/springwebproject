@@ -20,5 +20,5 @@ cp target/app.war deploy/app.war ;
 cd deploy/
 ### build images
 docker build . -t project ;
-docker run -d --name applicationContainer --link db:db project ;
+docker run -d -p 80:8080 --name applicationContainer --link db:db project ;
 echo " BUILD FINISHED ! ";
